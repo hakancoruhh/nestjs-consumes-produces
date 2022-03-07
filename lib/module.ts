@@ -1,17 +1,20 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import {Global, DynamicModule, Module } from '@nestjs/common';
 import {NestjsConsumesProducesService} from './service'
-import {NestjsConsumesProducesModuleAsyncOptions} from './interfaces'
+import {NestjsConsumesProducesModuleAsyncOptions,INestjsConsumesProducesServiceSymbol} from './interfaces'
 
 
 
-
+@Global()
 @Module({})
 export class NestjsConsumesProducesModule {
   static forRoot(): DynamicModule {
     return {
       module: NestjsConsumesProducesModule,
-      providers: [NestjsConsumesProducesService],
-      exports: [NestjsConsumesProducesService],
+      providers: [{
+        provide:INestjsConsumesProducesServiceSymbol,
+        useClass:NestjsConsumesProducesService
+      }],
+    
     };
   }
 

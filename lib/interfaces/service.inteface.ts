@@ -2,6 +2,7 @@ import { HttpStatus } from "@nestjs/common";
 import {ContentTypes} from '../constants'
 
 
+export const INestjsConsumesProducesServiceSymbol = Symbol("INestjsConsumesProducesService");
 
 export interface INestjsConsumesProducesService{
     getTitle(): string;

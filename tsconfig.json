@@ -1,4 +1,4 @@
-{
+  {
     "compilerOptions": {
       "module": "commonjs",
       "declaration": true,
@@ -14,11 +14,11 @@
       "skipLibCheck": true
     },
     "include": [
-      "lib/**/*"
+      "lib/**/*",
+      
     ],
     "exclude": [
       "node_modules",
       "**/*.spec.ts"
     ]
   }
-  
