@@ -1,32 +1,40 @@
 import { DECORATORS, ContentTypes } from "../constants";
 import { CanActivate, ExecutionContext, HttpStatus, Injectable, SetMetadata } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
+import {INestjsConsumesProducesService} from '../interfaces'
+import {HttpNestjsConsumeProduceException} from '../errors'
 
 
 
 @Injectable()
 export class ProducesContentTypeGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(private reflector: Reflector,private readonly consumesProducesService:INestjsConsumesProducesService) { }
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
-    const contentTypes = this.reflector.get<ContentTypes[]>(
+    const expectedAccepts = this.reflector.get<ContentTypes[]>(
       DECORATORS.API_PRODUCES,
       context.getHandler()
     ) as ContentTypes[];
+    
+    const isEndPointExistAccept = expectedAccepts && expectedAccepts.length>0 
+    if (!isEndPointExistAccept) return true
+    const receivedAccepts =  request.headers?.["accept"] as ContentTypes[]
+    const extraCondition = this.consumesProducesService.checkProducesExtraCondition(expectedAccepts,receivedAccepts)
+    const isIntersected = expectedAccepts.findIndex(e => receivedAccepts.indexOf(e) !== -1) > 0
 
-    const isExist = contentTypes&& contentTypes.length>0 
-  
-    if (contentTypes&& contentTypes.length>0 && request.headers?.["content-type"] != contentFormat) {
-      throw new HttpErrorException(
-        {
-          message:
-            "The requested resource is capable of generating only content not acceptable according to the Content-type headers sent in the request",
-          name: "NOT VALID",
-        },
-        HttpStatus.NOT_ACCEPTABLE
-      );
+    if (isIntersected && extraCondition ) {
+      const message=  this.consumesProducesService.getProducesErrorText(expectedAccepts,receivedAccepts)
+      const title=  this.consumesProducesService.getTitle()
+      const httpCode = this.consumesProducesService.getHttpCode()
+       throw new HttpNestjsConsumeProduceException(
+         {
+           message:message,
+           name: title,
+         },
+         httpCode
+       );
     }
 
-    return true;
+
   }
 }

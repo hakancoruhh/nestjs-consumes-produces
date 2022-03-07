@@ -1,29 +1,26 @@
-import { DynamicModule, flatten, Module } from '@nestjs/common';
-import { AsyncModelFactory, ModelDefinition } from './interfaces';
-import {
-  MongooseModuleAsyncOptions,
-  MongooseModuleOptions,
-} from './interfaces/mongoose-options.interface';
+import { DynamicModule, Module } from '@nestjs/common';
+import {NestjsConsumesProducesService} from './service'
+import {NestjsConsumesProducesModuleAsyncOptions} from './interfaces'
+
+
 
 
 @Module({})
 export class NestjsConsumesProducesModule {
-  static forRoot(
-    uri: string,
-    options: MongooseModuleOptions = {},
-  ): DynamicModule {
+  static forRoot(): DynamicModule {
     return {
       module: NestjsConsumesProducesModule,
-  
+      providers: [NestjsConsumesProducesService],
+      exports: [NestjsConsumesProducesService],
     };
   }
 
-  static forRootAsync(options: MongooseModuleAsyncOptions): DynamicModule {
+  static forRootAsync(options:NestjsConsumesProducesModuleAsyncOptions): DynamicModule {
     return {
       module: NestjsConsumesProducesModule,
 
     };
   }
 
-  
+
 }
