@@ -14,6 +14,10 @@ export class NestjsConsumesProducesModule {
         provide:INestjsConsumesProducesServiceSymbol,
         useClass:NestjsConsumesProducesService
       }],
+      exports:[{
+        provide:INestjsConsumesProducesServiceSymbol,
+        useClass:NestjsConsumesProducesService
+      }]
     
     };
   }
