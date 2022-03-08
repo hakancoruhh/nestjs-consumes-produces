@@ -1,13 +1,3 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-
-
-
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
 API Endpoint Consume and Produces module for [Nest](https://github.com/nestjs/nest).
@@ -65,7 +55,7 @@ export class AppModule {}
 Once this is done,You can protect your end point by Content-Type and Accept header
 
 ```typescript
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post,Put } from '@nestjs/common';
 import { ApiConsumes, ApiProduces } from "nestjs-consumes-produces";
 
 
@@ -79,7 +69,7 @@ export class CatsController {
     return 'This action returns all cats';
   }
 
-  @Update()
+  @Put()
   @ApiConsumes("application/json")
   @ApiProduces("*/*")
   update(){
