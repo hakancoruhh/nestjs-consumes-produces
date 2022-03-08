@@ -16,13 +16,16 @@ export class ProducesContentTypeGuard implements CanActivate {
       context.getHandler()
     ) as ContentTypes[];
     
+    
     const isEndPointExistAccept = expectedAccepts && expectedAccepts.length>0 
     if (!isEndPointExistAccept) return true
-    const receivedAccepts =  request.headers?.["accept"] as ContentTypes[]
+    const receivedAccepts =  request.headers?.["accept"] ? request.headers?.["accept"].split(",") as ContentTypes[]:null
+    if(receivedAccepts.findIndex(receivedAccept=>receivedAccept=="*/*")>-1) return true
     const extraCondition = this.consumesProducesService.checkProducesExtraCondition(expectedAccepts,receivedAccepts)
-    const isIntersected = expectedAccepts.findIndex(e => receivedAccepts.indexOf(e) !== -1) > 0
+    const isNotIntersected = (receivedAccepts.filter(value => expectedAccepts.includes(value)).length>0)
 
-    if (isIntersected && extraCondition ) {
+
+    if (isNotIntersected && extraCondition) {
       const message=  this.consumesProducesService.getProducesErrorText(expectedAccepts,receivedAccepts)
       const title=  this.consumesProducesService.getTitle()
       const httpCode = this.consumesProducesService.getHttpCode()
@@ -34,6 +37,7 @@ export class ProducesContentTypeGuard implements CanActivate {
          httpCode
        );
     }
+    return true
 
 
   }

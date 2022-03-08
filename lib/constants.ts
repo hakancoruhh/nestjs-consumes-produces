@@ -61,7 +61,8 @@ export type ContentTypes = "application/java-archive" |
   "application/vnd.openxmlformats-officedocument.presentationml.presentation" |
   "application/msword" |
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document" |
-  "application/vnd.mozilla.xul+xml"
+  "application/vnd.mozilla.xul+xml" |
+  "*/*"
 
 
 

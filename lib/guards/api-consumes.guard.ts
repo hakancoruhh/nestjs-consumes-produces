@@ -22,6 +22,7 @@ export class ConsumesContentTypeGuard implements CanActivate {
     const receivedContentType =  request.headers?.["content-type"] as ContentTypes
     const extraCondition = this.consumesProducesService.checkConsumesExtraCondition(expectedContentTypes,receivedContentType)
     const isNotInclude = expectedContentTypes.findIndex(x=>x==receivedContentType)==-1
+    
     if (isNotInclude && extraCondition) {
      const message=  this.consumesProducesService.getConsumesErrorText(expectedContentTypes,receivedContentType)
      const title=  this.consumesProducesService.getTitle()
@@ -34,6 +35,7 @@ export class ConsumesContentTypeGuard implements CanActivate {
         httpCode
       );
     }
+    return true
 
   }
 }

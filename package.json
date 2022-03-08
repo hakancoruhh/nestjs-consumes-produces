@@ -1,10 +1,11 @@
 {
   "name": "nestjs-consumes-produces",
-  "version": "0.0.4",
+  "version": "0.0.26",
   "description": "Accept and Content-Type headers check on NestJS API",
   "license": "MIT",
   "author": "hakancoruhh",
   "repository": "https://github.com/hakancoruhh/nestjs-consumes-produces.git",
+  "main": "dist/index.js",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "format": "prettier \"lib/**/*.ts\" --write",
@@ -43,5 +44,8 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "reflect-metadata": "^0.1.12"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
