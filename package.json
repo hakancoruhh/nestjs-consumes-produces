@@ -1,6 +1,6 @@
 {
   "name": "nestjs-consumes-produces",
-  "version": "0.0.37",
+  "version": "0.0.38",
   "description": "Accept and Content-Type headers check on NestJS API",
   "license": "MIT",
   "author": "hakancoruhh",
