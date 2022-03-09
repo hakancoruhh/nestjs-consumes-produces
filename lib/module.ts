@@ -25,6 +25,14 @@ export class NestjsConsumesProducesModule {
   static forRootAsync(options:NestjsConsumesProducesModuleAsyncOptions): DynamicModule {
     return {
       module: NestjsConsumesProducesModule,
+      providers: [{
+        provide:INestjsConsumesProducesServiceSymbol,
+        useClass:options.useClass
+      }],
+      exports:[{
+        provide:INestjsConsumesProducesServiceSymbol,
+        useClass:options.useClass
+      }]
 
     };
   }
