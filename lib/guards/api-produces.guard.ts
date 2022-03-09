@@ -21,11 +21,11 @@ export class ProducesContentTypeGuard implements CanActivate {
     if (!isEndPointExistAccept) return true
     const receivedAccepts =  request.headers?.["accept"] ? request.headers?.["accept"].split(",") as ContentTypes[]:null
     if(receivedAccepts?.findIndex(receivedAccept=>receivedAccept=="*/*")>-1) return true
-    const extraCondition = this.consumesProducesService.checkProducesExtraCondition(expectedAccepts,receivedAccepts)
+    const extraCondition = this.consumesProducesService.isProducesExtraConditionOk(expectedAccepts,receivedAccepts)
     const isNotIntersected = !(receivedAccepts?.filter(value => expectedAccepts.includes(value))?.length>0)
 
 
-    if (isNotIntersected && extraCondition) {
+    if (isNotIntersected || !extraCondition) {
       const message=  this.consumesProducesService.getProducesErrorText(expectedAccepts,receivedAccepts)
       const title=  this.consumesProducesService.getTitle()
       const httpCode = this.consumesProducesService.getHttpCode()

@@ -8,6 +8,6 @@ export abstract class INestjsConsumesProducesService{
     abstract getConsumesErrorText(expected:ContentTypes[],received:ContentTypes): string;
     abstract getProducesErrorText(expected:ContentTypes[],received:ContentTypes[]): string;
     abstract getHttpCode(): HttpStatus;
-    abstract checkConsumesExtraCondition(expected:ContentTypes[],received:ContentTypes,request:Request):boolean
-    abstract checkProducesExtraCondition(expected:ContentTypes[],received:ContentTypes[]):boolean
+    abstract isConsumesExtraConditionOk(expected:ContentTypes[],received:ContentTypes,request:Request):boolean
+    abstract isProducesExtraConditionOk(expected:ContentTypes[],received:ContentTypes[]):boolean
   }

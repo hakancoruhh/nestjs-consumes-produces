@@ -20,10 +20,10 @@ export class ConsumesContentTypeGuard implements CanActivate {
     const isEndPointExistContentType = expectedContentTypes && expectedContentTypes.length>0 
     if (!isEndPointExistContentType) return true
     const receivedContentType =  request.headers?.["content-type"] as ContentTypes
-    const extraCondition = this.consumesProducesService.checkConsumesExtraCondition(expectedContentTypes,receivedContentType,request)
+    const extraCondition = this.consumesProducesService.isConsumesExtraConditionOk(expectedContentTypes,receivedContentType,request)
     const isNotInclude = expectedContentTypes.findIndex(x=>x==receivedContentType)==-1
     
-    if (isNotInclude && extraCondition) {
+    if (isNotInclude || !extraCondition) {
      const message=  this.consumesProducesService.getConsumesErrorText(expectedContentTypes,receivedContentType)
      const title=  this.consumesProducesService.getTitle()
      const httpCode = this.consumesProducesService.getHttpCode()

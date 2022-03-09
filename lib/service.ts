@@ -5,11 +5,9 @@ import {INestjsConsumesProducesService} from './interfaces'
 
 @Injectable()
 export class NestjsConsumesProducesService implements INestjsConsumesProducesService {
-
   getTitle():string{
       return defaultTitle
   }
-
   getConsumesErrorText(expected:ContentTypes[],received:ContentTypes):string{
     return consumesApidefaultMessage
   }
@@ -18,19 +16,16 @@ export class NestjsConsumesProducesService implements INestjsConsumesProducesSer
     return producesApidefaultMessage
   }
 
-
   getHttpCode():HttpStatus{
     return  HttpStatus.NOT_ACCEPTABLE
   }
 
-  
-  checkConsumesExtraCondition(expected:ContentTypes[],received:ContentTypes):boolean{
+  isConsumesExtraConditionOk(expected: ContentTypes[], received: ContentTypes, request: Request): boolean {
+    return true
+   }
+
+
+  isProducesExtraConditionOk(expected:ContentTypes[],received:ContentTypes[]):boolean{
     return true
   }
-
-  checkProducesExtraCondition(expected:ContentTypes[],received:ContentTypes[]):boolean{
-    return true
-  }
-
-
 }
