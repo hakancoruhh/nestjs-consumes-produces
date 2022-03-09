@@ -79,6 +79,62 @@ export class CatsController {
 ```
 
 
+Also You can change default values and add extra conditions
+
+```typescript
+import { Module } from '@nestjs/common';
+import { NestjsConsumesProducesModule,
+        ConsumesContentTypeGuard,
+        ProducesContentTypeGuard,
+        ContentTypes } from "nestjs-consumes-produces";
+
+@Injectable()
+export class CustomNestjsConsumesProducesService implements INestjsConsumesProducesService{
+  isConsumesExtraConditionOk(expected: ContentTypes[], received: ContentTypes, request: Request): boolean {
+    return true
+  }
+  isProducesExtraConditionOk(expected: ContentTypes[], received: ContentTypes[]): boolean {
+      return  true
+  }
+
+
+  getConsumesErrorText(expected: ContentTypes[], received: ContentTypes): string {
+    return "Custom  text";
+  }
+
+  getHttpCode(): HttpStatus {
+    return HttpStatus.BAD_REQUEST;
+  }
+
+  getProducesErrorText(expected: ContentTypes[], received: ContentTypes[]): string {
+    return "Custom  text";
+  }
+
+  getTitle(): string {
+    return "Custom Title";
+  }
+}
+
+
+@Module({
+  imports: [
+    NestjsConsumesProducesModule.forRootAsync({useClass:NestjsConsumesProducesService}),
+  ],
+  providers: [
+  {
+      provide:APP_GUARD,
+      useClass:ConsumesContentTypeGuard
+    },
+    {
+      provide:APP_GUARD,
+      useClass:ProducesContentTypeGuard
+    },
+  ]
+})
+export class AppModule {}
+```
+
+
 
 
 

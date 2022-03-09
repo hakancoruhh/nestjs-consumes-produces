@@ -24,7 +24,6 @@ export class NestjsConsumesProducesService implements INestjsConsumesProducesSer
     return true
    }
 
-
   isProducesExtraConditionOk(expected:ContentTypes[],received:ContentTypes[]):boolean{
     return true
   }
