@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+export {ContentTypes} from './constants';
 export * from './decorators';
 export * from './guards';
 export * from './interfaces';
