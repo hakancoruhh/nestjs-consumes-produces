@@ -140,4 +140,4 @@ export class AppModule {}
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+nestjs-consumes-produces is [MIT licensed](./LICENSE).
