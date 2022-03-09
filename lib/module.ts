@@ -1,6 +1,6 @@
 import {Global, DynamicModule, Module } from '@nestjs/common';
 import {NestjsConsumesProducesService} from './service'
-import {NestjsConsumesProducesModuleAsyncOptions,INestjsConsumesProducesServiceSymbol} from './interfaces'
+import {NestjsConsumesProducesModuleAsyncOptions,INestjsConsumesProducesService} from './interfaces'
 
 
 
@@ -11,11 +11,11 @@ export class NestjsConsumesProducesModule {
     return {
       module: NestjsConsumesProducesModule,
       providers: [{
-        provide:INestjsConsumesProducesServiceSymbol,
+        provide:INestjsConsumesProducesService,
         useClass:NestjsConsumesProducesService
       }],
       exports:[{
-        provide:INestjsConsumesProducesServiceSymbol,
+        provide:INestjsConsumesProducesService,
         useClass:NestjsConsumesProducesService
       }]
     
@@ -26,11 +26,11 @@ export class NestjsConsumesProducesModule {
     return {
       module: NestjsConsumesProducesModule,
       providers: [{
-        provide:INestjsConsumesProducesServiceSymbol,
+        provide:INestjsConsumesProducesService,
         useClass:options.useClass
       }],
       exports:[{
-        provide:INestjsConsumesProducesServiceSymbol,
+        provide:INestjsConsumesProducesService,
         useClass:options.useClass
       }]
 

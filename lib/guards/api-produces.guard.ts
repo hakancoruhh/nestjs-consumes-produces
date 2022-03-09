@@ -1,14 +1,14 @@
 import { DECORATORS, ContentTypes } from "../constants";
 import { CanActivate, ExecutionContext, Inject, Injectable } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import {INestjsConsumesProducesService,INestjsConsumesProducesServiceSymbol} from '../interfaces'
+import {INestjsConsumesProducesService} from '../interfaces'
 import {HttpNestjsConsumeProduceException} from '../errors'
 
 
 
 @Injectable()
 export class ProducesContentTypeGuard implements CanActivate {
-  constructor(private reflector: Reflector, @Inject(INestjsConsumesProducesServiceSymbol) private readonly consumesProducesService: INestjsConsumesProducesService) { }
+  constructor(private reflector: Reflector, private readonly consumesProducesService: INestjsConsumesProducesService) { }
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     const expectedAccepts = this.reflector.get<ContentTypes[]>(

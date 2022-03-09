@@ -1,13 +1,13 @@
 import { HttpStatus } from "@nestjs/common";
 import {ContentTypes} from '../constants'
 
-export const INestjsConsumesProducesServiceSymbol = Symbol("INestjsConsumesProducesService");
+//export const INestjsConsumesProducesServiceSymbolToken = Symbol("INestjsConsumesProducesService");
 
-export interface INestjsConsumesProducesService{
-    getTitle(): string;
-    getConsumesErrorText(expected:ContentTypes[],received:ContentTypes): string;
-    getProducesErrorText(expected:ContentTypes[],received:ContentTypes[]): string;
-    getHttpCode(): HttpStatus;
-    checkConsumesExtraCondition(expected:ContentTypes[],received:ContentTypes):boolean
-    checkProducesExtraCondition(expected:ContentTypes[],received:ContentTypes[]):boolean
+export abstract class INestjsConsumesProducesService{
+    abstract getTitle(): string;
+    abstract getConsumesErrorText(expected:ContentTypes[],received:ContentTypes): string;
+    abstract getProducesErrorText(expected:ContentTypes[],received:ContentTypes[]): string;
+    abstract getHttpCode(): HttpStatus;
+    abstract checkConsumesExtraCondition(expected:ContentTypes[],received:ContentTypes,request:Request):boolean
+    abstract checkProducesExtraCondition(expected:ContentTypes[],received:ContentTypes[]):boolean
   }
